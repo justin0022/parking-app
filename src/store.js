@@ -13,15 +13,15 @@ import {
   compose,
   applyMiddleware,
   combineReducers
-} from 'redux';
-import thunk from 'redux-thunk';
-import { lazyReducerEnhancer } from 'pwa-helpers/lazy-reducer-enhancer.js';
+} from 'redux'
+import thunk from 'redux-thunk'
+import { lazyReducerEnhancer } from 'pwa-helpers/lazy-reducer-enhancer.js'
 
-import app from './reducers/app.js';
+import app from './reducers/app.js'
 
 // Sets up a Chrome extension for time travel debugging.
 // See https://github.com/zalmoxisus/redux-devtools-extension for more information.
-const devCompose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const devCompose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 // Initializes the Redux store with a lazyReducerEnhancer (so that you can
 // lazily add reducers after the store has been created) and redux-thunk (so
@@ -33,9 +33,9 @@ export const store = createStore(
   devCompose(
     lazyReducerEnhancer(combineReducers),
     applyMiddleware(thunk))
-);
+)
 
 // Initially loaded reducers.
 store.addReducers({
   app
-});
+})

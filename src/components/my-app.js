@@ -8,34 +8,34 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-import { LitElement, html } from '@polymer/lit-element';
-import { setPassiveTouchGestures } from '@polymer/polymer/lib/utils/settings.js';
-import { connect } from 'pwa-helpers/connect-mixin.js';
-import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js';
-import { installOfflineWatcher } from 'pwa-helpers/network.js';
-import { installRouter } from 'pwa-helpers/router.js';
-import { updateMetadata } from 'pwa-helpers/metadata.js';
+import { LitElement, html } from '@polymer/lit-element'
+import { setPassiveTouchGestures } from '@polymer/polymer/lib/utils/settings.js'
+import { connect } from 'pwa-helpers/connect-mixin.js'
+import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js'
+import { installOfflineWatcher } from 'pwa-helpers/network.js'
+import { installRouter } from 'pwa-helpers/router.js'
+import { updateMetadata } from 'pwa-helpers/metadata.js'
 
 // This element is connected to the Redux store.
-import { store } from '../store.js';
+import { store } from '../store.js'
 
 // These are the actions needed by this element.
 import {
   navigate,
   updateOffline,
   updateDrawerState
-} from '../actions/app.js';
+} from '../actions/app.js'
 
 // These are the elements needed by this element.
-import '@polymer/app-layout/app-drawer/app-drawer.js';
-import '@polymer/app-layout/app-header/app-header.js';
-import '@polymer/app-layout/app-scroll-effects/effects/waterfall.js';
-import '@polymer/app-layout/app-toolbar/app-toolbar.js';
-import { menuIcon } from './my-icons.js';
-import './snack-bar.js';
+import '@polymer/app-layout/app-drawer/app-drawer.js'
+import '@polymer/app-layout/app-header/app-header.js'
+import '@polymer/app-layout/app-scroll-effects/effects/waterfall.js'
+import '@polymer/app-layout/app-toolbar/app-toolbar.js'
+import { menuIcon } from './my-icons.js'
+import './snack-bar.js'
 
 class MyApp extends connect(store)(LitElement) {
-  render() {
+  render () {
     // Anything that's related to rendering should be done in here.
     return html`
     <style>
@@ -218,10 +218,10 @@ class MyApp extends connect(store)(LitElement) {
 
     <snack-bar ?active="${this._snackbarOpened}">
         You are now ${this._offline ? 'offline' : 'online'}.</snack-bar>
-    `;
+    `
   }
 
-  static get properties() {
+  static get properties () {
     return {
       appTitle: { type: String },
       _page: { type: String },
@@ -231,45 +231,45 @@ class MyApp extends connect(store)(LitElement) {
     }
   }
 
-  constructor() {
-    super();
+  constructor () {
+    super()
     // To force all event listeners for gestures to be passive.
     // See https://www.polymer-project.org/3.0/docs/devguide/settings#setting-passive-touch-gestures
-    setPassiveTouchGestures(true);
+    setPassiveTouchGestures(true)
   }
 
-  firstUpdated() {
-    installRouter((location) => store.dispatch(navigate(decodeURIComponent(location.pathname))));
-    installOfflineWatcher((offline) => store.dispatch(updateOffline(offline)));
+  firstUpdated () {
+    installRouter((location) => store.dispatch(navigate(decodeURIComponent(location.pathname))))
+    installOfflineWatcher((offline) => store.dispatch(updateOffline(offline)))
     installMediaQueryWatcher(`(min-width: 460px)`,
-        () => store.dispatch(updateDrawerState(false)));
+        () => store.dispatch(updateDrawerState(false)))
   }
 
-  updated(changedProps) {
+  updated (changedProps) {
     if (changedProps.has('_page')) {
-      const pageTitle = this.appTitle + ' - ' + this._page;
+      const pageTitle = this.appTitle + ' - ' + this._page
       updateMetadata({
         title: pageTitle,
         description: pageTitle
         // This object also takes an image property, that points to an img src.
-      });
+      })
     }
   }
 
-  _menuButtonClicked() {
-    store.dispatch(updateDrawerState(true));
+  _menuButtonClicked () {
+    store.dispatch(updateDrawerState(true))
   }
 
-  _drawerOpenedChanged(e) {
-    store.dispatch(updateDrawerState(e.target.opened));
+  _drawerOpenedChanged (e) {
+    store.dispatch(updateDrawerState(e.target.opened))
   }
 
-  stateChanged(state) {
-    this._page = state.app.page;
-    this._offline = state.app.offline;
-    this._snackbarOpened = state.app.snackbarOpened;
-    this._drawerOpened = state.app.drawerOpened;
+  stateChanged (state) {
+    this._page = state.app.page
+    this._offline = state.app.offline
+    this._snackbarOpened = state.app.snackbarOpened
+    this._drawerOpened = state.app.drawerOpened
   }
 }
 
-window.customElements.define('my-app', MyApp);
+window.customElements.define('my-app', MyApp)

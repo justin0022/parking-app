@@ -11,7 +11,7 @@
 module.exports = {
   staticFileGlobs: [
     'manifest.json',
-    'src/**/*',
+    'src/**/*'
   ],
   runtimeCaching: [
     {
@@ -23,4 +23,4 @@ module.exports = {
       handler: 'fastest'
     }
   ]
-};
+}

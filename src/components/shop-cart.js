@@ -8,27 +8,27 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-import { LitElement, html } from '@polymer/lit-element';
-import { connect } from 'pwa-helpers/connect-mixin.js';
+import { LitElement, html } from '@polymer/lit-element'
+import { connect } from 'pwa-helpers/connect-mixin.js'
 
 // This element is connected to the Redux store.
-import { store } from '../store.js';
+import { store } from '../store.js'
 
 // These are the elements needed by this element.
-import { removeFromCartIcon } from './my-icons.js';
-import './shop-item.js';
+import { removeFromCartIcon } from './my-icons.js'
+import './shop-item.js'
 
 // These are the actions needed by this element.
-import { removeFromCart } from '../actions/shop.js';
+import { removeFromCart } from '../actions/shop.js'
 
 // These are the reducers needed by this element.
-import { cartItemsSelector, cartTotalSelector } from '../reducers/shop.js';
+import { cartItemsSelector, cartTotalSelector } from '../reducers/shop.js'
 
 // These are the shared styles needed by this element.
-import { ButtonSharedStyles } from './button-shared-styles.js';
+import { ButtonSharedStyles } from './button-shared-styles.js'
 
 class ShopCart extends connect(store)(LitElement) {
-  render() {
+  render () {
     return html`
       ${ButtonSharedStyles}
       <style>
@@ -49,23 +49,25 @@ class ShopCart extends connect(store)(LitElement) {
         `
       )}
       <p ?hidden="${!this._items.length}"><b>Total:</b> ${this._total}</p>
-    `;
+    `
   }
 
-  static get properties() { return {
-    _items: { type: Array },
-    _total: { type: Number }
-  }}
+  static get properties () {
+    return {
+      _items: { type: Array },
+      _total: { type: Number }
+    }
+  }
 
-  _removeButtonClicked(e) {
-    store.dispatch(removeFromCart(e.currentTarget.dataset['index']));
+  _removeButtonClicked (e) {
+    store.dispatch(removeFromCart(e.currentTarget.dataset['index']))
   }
 
   // This is called every time something is updated in the store.
-  stateChanged(state) {
-    this._items = cartItemsSelector(state);
-    this._total = cartTotalSelector(state);
+  stateChanged (state) {
+    this._items = cartItemsSelector(state)
+    this._total = cartTotalSelector(state)
   }
 }
 
-window.customElements.define('shop-cart', ShopCart);
+window.customElements.define('shop-cart', ShopCart)

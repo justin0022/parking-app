@@ -8,14 +8,14 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-import { html } from '@polymer/lit-element';
-import { PageViewElement } from './page-view-element.js';
+import { html } from '@polymer/lit-element'
+import { PageViewElement } from './page-view-element.js'
 
 // These are the shared styles needed by this element.
-import { SharedStyles } from './shared-styles.js';
+import { SharedStyles } from './shared-styles.js'
 
 class MyView404 extends PageViewElement {
-  render() {
+  render () {
     return html`
       ${SharedStyles}
       <section>
@@ -28,4 +28,4 @@ class MyView404 extends PageViewElement {
   }
 }
 
-window.customElements.define('my-view404', MyView404);
+window.customElements.define('my-view404', MyView404)

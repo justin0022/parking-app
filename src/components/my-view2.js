@@ -8,30 +8,30 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-import { html } from '@polymer/lit-element';
-import { PageViewElement } from './page-view-element.js';
-import { connect } from 'pwa-helpers/connect-mixin.js';
+import { html } from '@polymer/lit-element'
+import { PageViewElement } from './page-view-element.js'
+import { connect } from 'pwa-helpers/connect-mixin.js'
 
 // This element is connected to the Redux store.
-import { store } from '../store.js';
+import { store } from '../store.js'
 
 // These are the actions needed by this element.
-import { increment, decrement } from '../actions/counter.js';
+import { increment, decrement } from '../actions/counter.js'
 
 // We are lazy loading its reducer.
-import counter from '../reducers/counter.js';
+import counter from '../reducers/counter.js'
 store.addReducers({
   counter
-});
+})
 
 // These are the elements needed by this element.
-import './counter-element.js';
+import './counter-element.js'
 
 // These are the shared styles needed by this element.
-import { SharedStyles } from './shared-styles.js';
+import { SharedStyles } from './shared-styles.js'
 
 class MyView2 extends connect(store)(PageViewElement) {
-  render() {
+  render () {
     return html`
       ${SharedStyles}
       <section>
@@ -53,28 +53,30 @@ class MyView2 extends connect(store)(PageViewElement) {
           </counter-element>
         </p>
       </section>
-    `;
+    `
   }
 
-  static get properties() { return {
+  static get properties () {
+    return {
     // This is the data from the store.
-    _clicks: { type: Number },
-    _value: { type: Number },
-  }}
-
-  _counterIncremented() {
-    store.dispatch(increment());
+      _clicks: { type: Number },
+      _value: { type: Number }
+    }
   }
 
-  _counterDecremented() {
-    store.dispatch(decrement());
+  _counterIncremented () {
+    store.dispatch(increment())
+  }
+
+  _counterDecremented () {
+    store.dispatch(decrement())
   }
 
   // This is called every time something is updated in the store.
-  stateChanged(state) {
-    this._clicks = state.counter.clicks;
-    this._value = state.counter.value;
+  stateChanged (state) {
+    this._clicks = state.counter.clicks
+    this._value = state.counter.value
   }
 }
 
-window.customElements.define('my-view2', MyView2);
+window.customElements.define('my-view2', MyView2)
